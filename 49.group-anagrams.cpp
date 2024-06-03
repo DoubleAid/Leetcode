@@ -50,11 +50,27 @@ using namespace std;
 class Solution {
 public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
-        if (strs.empty()) return vector<vector<string>>{{}};
-        vector<string> new_group{strs[0]};
-        string seq = sort()
-        int 
+        // 哈希表，键是排序后的字符串，值是原字符串的列表
+        std::unordered_map<std::string, std::vector<std::string>> map;
+
+        // 遍历所有字符串
+        for (std::string& str : strs) {
+            std::string key = str;
+            std::sort(key.begin(), key.end());
+            map[key].push_back(str);
+        }
+
+        // 收集结果
+        std::vector<std::vector<std::string>> result;
+        for (auto& pair : map) {
+            result.push_back(pair.second);
+        }
+
+        return result;
     }
 };
 // @lc code=end
 
+// 126/126 cases passed (24 ms)
+// Your runtime beats 78.44 % of cpp submissions
+// Your memory usage beats 89.37 % of cpp submissions (23.6 MB)
