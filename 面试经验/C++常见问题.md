@@ -1,0 +1,201 @@
+## 索引
+1. [什么是C++中的多态性（Polymorphism）？](#问题-1什么是c中的多态性polymorphism)
+2. [什么是虚函数virtual-function为什么需要它](#问题-2什么是虚函数virtual-function为什么需要它)
+3. [解释c中的构造函数和析构函数](#问题-3解释c中的构造函数和析构函数)
+4. [什么是拷贝构造函数copy-constructor](#问题-4什么是拷贝构造函数copy-constructor)
+5. [什么是c中的虚基类virtual-base-class为什么需要它](#问题-5什么是c中的虚基类virtual-base-class为什么需要它)
+6. [如何实现c中的单例模式singleton-pattern](#问题-6如何实现c中的单例模式singleton-pattern)
+
+
+### 问题 1：什么是C++中的多态性（Polymorphism）？
+答案：  
+多态性是指在C++中，使用相同的接口调用不同的实际方法。多态性主要分为两种类型：编译时多态性（通过函数重载和运算符重载实现）和运行时多态性（通过虚函数实现）。运行时多态性允许一个基类的指针或引用指向不同的派生类对象，并调用派生类的重写方法。
+
+### 问题 2: C++的多态有什么意义或者解决了什么问题
+答案：  
+1. 代码复用和维护性 多态性允许使用基类指针或引用来操作派生类对象，这使得可以编写通用代码，减少重复代码，提高代码的复用性和可维护性。
+2. 动态绑定 通过多态性，可以在运行时根据实际对象类型调用对应的方法，而不是在编译时确定调用哪个方法。
+3. 接口统一 多态性通过虚函数提供了一种统一接口的方式，使得不同类型的对象可以通过相同的接口进行操作。
+4. 解耦合 多态性使得代码的各个部分更加独立，减少了模块之间的耦合度。
+
+### 问题 2：什么是虚函数（Virtual Function）？为什么需要它？
+答案：  
+虚函数是基类中声明为virtual的函数，可以在派生类中被重写。当通过基类指针或引用调用虚函数时，会根据实际对象的类型调用相应的派生类中的重写版本，而不是基类版本。虚函数实现了运行时多态性，使得程序可以在不改变调用代码的情况下扩展和修改行为。
+
+### 问题 3：解释C++中的构造函数和析构函数。
+答案：  
+构造函数是在创建对象时自动调用的特殊函数，用于初始化对象。构造函数的名称与类名相同，没有返回类型。析构函数是在对象生命周期结束时自动调用的特殊函数，用于清理和释放资源。析构函数的名称与类名相同，前面加上~符号，没有参数和返回类型。
+
+### 问题 4：什么是拷贝构造函数（Copy Constructor）？
+答案：  
+拷贝构造函数是用于创建一个新对象，并用现有对象初始化它的构造函数。它的形式通常为ClassName(const ClassName &other)。拷贝构造函数可以深拷贝（逐个成员拷贝）或者浅拷贝（成员指针地址拷贝）。
+
+### 问题 5：什么是C++中的虚基类（Virtual Base Class）？为什么需要它？
+答案：  
+虚基类是为了解决多重继承中“菱形继承”问题而引入的。菱形继承指的是当一个派生类从两个基类继承，而这两个基类又从同一个祖先类继承时，派生类会间接继承祖先类两次。通过将祖先类声明为虚基类，可以确保派生类只拥有祖先类的一个实例，避免数据冗余和二义性。
+
+### 问题 6：如何实现C++中的单例模式（Singleton Pattern）？
+答案：  
+单例模式确保一个类只有一个实例，并提供一个全局访问点。实现单例模式的一种方法如下：
+```cpp
+class Singleton {
+private:
+    static Singleton* instance;
+
+    // 私有构造函数，防止外部实例化
+    Singleton() {}
+
+public:
+    // 删除拷贝构造函数和赋值运算符
+    Singleton(const Singleton&) = delete;
+    Singleton& operator=(const Singleton&) = delete;
+
+    // 获取单例实例的静态方法
+    static Singleton* getInstance() {
+        if (instance == nullptr) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+};
+
+// 初始化静态成员变量
+Singleton* Singleton::instance = nullptr;
+```
+
+### 问题 7：解释C++中的虚表（Virtual Table）和虚指针（Virtual Pointer）。
+答案：  
+虚表（Virtual Table）是一个用于实现动态绑定和多态性的机制。每个包含虚函数的类都有一个虚表，虚表中存储了该类的虚函数的地址。虚指针（Virtual Pointer）是一个指向虚表的指针，存在于每个对象的内存中。当调用一个虚函数时，程序会通过虚指针找到虚表，并从虚表中调用正确的函数实现。
+
+### 问题 8：什么是const成员函数？它有什么用途？
+答案：  
+const成员函数是指不会修改类成员变量的成员函数。在成员函数的声明和定义中加上const关键字即可声明一个const成员函数。它的用途主要是保证成员函数不会改变对象的状态，允许在常量对象上调用，并提高代码的可读性和安全性。例如：
+```cpp
+class MyClass {
+public:
+    int getValue() const {
+        return value;
+    }
+
+private:
+    int value;
+};
+```
+
+### 问题 9：C++中的继承（Inheritance）有几种类型？请解释每种类型。
+答案：  
+C++中的继承主要有三种类型：
+1. 公有继承（Public Inheritance）：基类的公有成员和保护成员在派生类中保持原有的访问级别，基类的私有成员在派生类中不可访问。
+2. 保护继承（Protected Inheritance）：基类的公有成员和保护成员在派生类中变成保护成员，基类的私有成员在派生类中不可访问。
+3. 私有继承（Private Inheritance）：基类的公有成员和保护成员在派生类中变成私有成员，基类的私有成员在派生类中不可访问。
+
+### 问题 10：C++11新增了哪些特性？列举其中五个并简要说明。
+答案：  
+C++11新增了许多特性，其中五个主要特性包括：
+
+自动类型推导（auto关键字）：自动推导变量类型，简化代码书写。
+```cpp
+auto x = 10; // x is deduced to be of type int
+```
+范围for循环（Range-based for loop）：简化遍历容器的语法。
+```cpp
+std::vector<int> vec = {1, 2, 3, 4};
+for (const auto& v : vec) {
+    std::cout << v << std::endl;
+}
+```
+智能指针（Smart Pointers）：引入std::unique_ptr, std::shared_ptr, 和std::weak_ptr用于自动管理动态内存。
+```cpp
+std::unique_ptr<int> p = std::make_unique<int>(10);
+```
+Lambda表达式（Lambda Expressions）：简洁地定义匿名函数。
+```cpp
+auto add = [](int a, int b) { return a + b; };
+std::cout << add(3, 4) << std::endl;
+```
+线程库（Thread Library）：引入std::thread和其他并发工具用于多线程编程。
+```cpp
+std::thread t([]() {
+    std::cout << "Hello from thread" << std::endl;
+});
+t.join();
+```
+
+### 问题 11：C++中的继承（Inheritance）有几种类型？请解释每种类型。
+答案：  
+C++中的继承主要有三种类型：
+
++ 公有继承（Public Inheritance）：基类的公有成员和保护成员在派生类中保持原有的访问级别，基类的私有成员在派生类中不可访问。
++ 保护继承（Protected Inheritance）：基类的公有成员和保护成员在派生类中变成保护成员，基类的私有成员在派生类中不可访问。
++ 私有继承（Private Inheritance）：基类的公有成员和保护成员在派生类中变成私有成员，基类的私有成员在派生类中不可访问。
+
+### 问题： 什么是宏函数和内联函数，两者有什么区别
+答案：
+宏函数和内联函数是C++中两种不同的实现函数调用的方式。它们在性能和使用场景上有各自的特点和区别。以下是对它们的详细解释和比较：
+
+#### 宏函数（Macro Function）
+宏函数是通过预处理器宏定义的代码片段，使用#define关键字定义。在编译前的预处理阶段，宏函数会被直接替换为宏定义的代码。
+```cpp
+#include <iostream>
+
+#define SQUARE(x) ((x) * (x))
+
+int main() {
+    int a = 5;
+    std::cout << "Square of " << a << " is " << SQUARE(a) << std::endl;
+    std::cout << "Square of " << a+1 << " is " << SQUARE(a+1) << std::endl;
+    return 0;
+}
+```
+#### 内联函数（Inline Function）
+内联函数是通过在函数定义前加上inline关键字来声明的。编译器在编译阶段将内联函数的函数体直接插入到每个调用点，避免了函数调用的开销。
+```cpp
+#include <iostream>
+
+inline int square(int x) {
+    return x * x;
+}
+
+int main() {
+    int a = 5;
+    std::cout << "Square of " << a << " is " << square(a) << std::endl;
+    std::cout << "Square of " << a+1 << " is " << square(a+1) << std::endl;
+    return 0;
+}
+```
+#### 区别：
+**定义方式：**
++ 宏函数：通过预处理器指令#define定义，不进行类型检查。
++ 内联函数：通过inline关键字定义，编译器会进行类型检查。
+
+**替换方式：**
++ 宏函数：在预处理阶段进行文本替换，替换过程中不做任何检查，容易引发错误。
++ 内联函数：在编译阶段将函数体插入到调用点，编译器会进行优化和类型检查。
+
+**参数处理：**
++ 宏函数：简单文本替换，可能引发多次计算副作用。
++ 内联函数：参数在调用时被评估一次，不会有副作用。
+```cpp
+#define DOUBLE(x) (x + x)
+// 使用DOUBLE(a++)会产生副作用，a被递增两次
+int result = DOUBLE(a++);
+
+inline int double_value(int x) { return x + x; }
+// 使用double_value(a++)不会产生副作用，a被递增一次
+int result = double_value(a++);
+```
+**调试和错误检查：**
++ 宏函数：调试困难，因为宏是在预处理阶段展开的，无法在宏内部设置断点。错误难以发现。
++ 内联函数：调试方便，函数可以设置断点，编译器进行错误检查。
+
+**功能和限制：**
++ 宏函数：功能简单，不支持复杂的逻辑和控制结构。
++ 内联函数：功能强大，可以包含复杂逻辑和控制结构，与普通函数无异。
+
+**作用域：**
++ 宏函数：在定义它们的文件中全局可见，容易引起命名冲突。
++ 内联函数：遵循C++的作用域规则，避免命名冲突。
+#### 结论：
+宏函数和内联函数各有优缺点。宏函数适用于一些简单的替换操作，但容易引发难以调试的错误。内联函数提供了更安全和灵活的方式来优化函数调用，通常推荐使用内联函数而不是宏函数。
+
+在实际开发中，建议尽量使用内联函数代替宏函数，以便获得更好的类型安全性、调试能力和代码可读性。
