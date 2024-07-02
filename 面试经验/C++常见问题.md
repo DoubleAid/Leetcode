@@ -44,35 +44,6 @@
 答案：  
 虚基类是为了解决多重继承中“菱形继承”问题而引入的。菱形继承指的是当一个派生类从两个基类继承，而这两个基类又从同一个祖先类继承时，派生类会间接继承祖先类两次。通过将祖先类声明为虚基类，可以确保派生类只拥有祖先类的一个实例，避免数据冗余和二义性。
 
-### 问题 7：如何实现C++中的单例模式（Singleton Pattern）？[返回](#索引)
-答案：  
-单例模式确保一个类只有一个实例，并提供一个全局访问点。实现单例模式的一种方法如下：
-```cpp
-class Singleton {
-private:
-    static Singleton* instance;
-
-    // 私有构造函数，防止外部实例化
-    Singleton() {}
-
-public:
-    // 删除拷贝构造函数和赋值运算符
-    Singleton(const Singleton&) = delete;
-    Singleton& operator=(const Singleton&) = delete;
-
-    // 获取单例实例的静态方法
-    static Singleton* getInstance() {
-        if (instance == nullptr) {
-            instance = new Singleton();
-        }
-        return instance;
-    }
-};
-
-// 初始化静态成员变量
-Singleton* Singleton::instance = nullptr;
-```
-
 ### 问题 8：解释C++中的虚表（Virtual Table）和虚指针（Virtual Pointer）。[返回](#索引)
 答案：  
 虚表（Virtual Table）是一个用于实现动态绑定和多态性的机制。每个包含虚函数的类都有一个虚表，虚表中存储了该类的虚函数的地址。虚指针（Virtual Pointer）是一个指向虚表的指针，存在于每个对象的内存中。当调用一个虚函数时，程序会通过虚指针找到虚表，并从虚表中调用正确的函数实现。
