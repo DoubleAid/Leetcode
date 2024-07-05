@@ -192,3 +192,9 @@ payload 类型：
 
 5. 0x0007 Diagnostic Communication Management
 管理诊断通信，包括启动和停止诊断会话
+
+## UDSonCan 报文结构
+请求格式：[CanID 11位] [Data length code 8位] [data]
++ 单帧请求(以读取某个did为例) [0x7DF] [0x08] [0x02] [0x22] [0xF1] [0x90] [0x00] [0x00] [0x00] [0x00]
+  + 0x02 
++ 标准回复 [0x7E8]

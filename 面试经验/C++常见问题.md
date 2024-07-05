@@ -4,8 +4,6 @@
 3. [解释c中的构造函数和析构函数](#问题-3什么是虚函数virtual-function为什么需要它返回)
 4. [什么是拷贝构造函数copy-constructor](#问题-4解释c中的构造函数和析构函数返回)
 5. [什么是c中的虚基类virtual-base-class为什么需要它](#问题-5什么是拷贝构造函数copy-constructor返回)
-6. [如何实现c中的单例模式singleton-pattern](#问题-6什么是c中的虚基类virtual-base-class为什么需要它返回)
-7. [如何实现c中的单例模式singleton-pattern](#问题-7如何实现c中的单例模式singleton-pattern返回)
 8. [解释c中的虚表virtual-table和虚指针virtual-pointer](#问题-8解释c中的虚表virtual-table和虚指针virtual-pointer返回)
 9. [什么是const成员函数它有什么用途](#问题-9什么是const成员函数它有什么用途返回)
 10. [c中的继承inheritance有几种类型请解释每种类型](#问题-10c中的继承inheritance有几种类型请解释每种类型返回)
